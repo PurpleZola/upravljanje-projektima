@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Projekat } from '../modeli/projekat.model';
+import { Projekat } from '../models/projekat.model';
 
 @Injectable({
   providedIn: 'root'
