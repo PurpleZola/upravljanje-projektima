@@ -1,0 +1,56 @@
+<div class="prijava-kontejner">
+  <mat-card class="prijava-kartica">
+
+    <mat-card-header>
+      <mat-card-title>Prijava</mat-card-title>
+      <mat-card-subtitle>Unesite vaše Korisničko ime i Lozinku</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form #prijavaForma="ngForm" (ngSubmit)="onPrijava()">
+
+        <mat-form-field appearance="outline" class="puno-sirine">
+          <mat-label>Korisničko ime</mat-label>
+          <input matInput
+                 type="text"
+                 name="korisnickoIme"
+                 [(ngModel)]="korisnickoIme"
+                 required
+                 #imePolje="ngModel">
+                @if (imePolje.invalid && imePolje.touched) {
+                <mat-error>Korisničko ime je obavezno</mat-error>
+                }               
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="puno-sirine">
+          <mat-label>Lozinka</mat-label>
+          <input matInput
+                 type="password"
+                 name="lozinka"
+                 [(ngModel)]="lozinka"
+                 required
+                 minlength="8"
+                 #lozinkaPolje="ngModel">
+                @if (lozinkaPolje.invalid && lozinkaPolje.touched) {
+                <mat-error>Lozinka mora imati najmanje 8 karaktera</mat-error>
+                }    
+        </mat-form-field>
+
+        @if (greskaLogin) {<p class="greska-tekst">{{ greskaLogin }}</p>}
+                            
+
+        <button mat-raised-button
+            color="primary"
+            type="submit"
+            class="puno-sirine dugme-prijava"
+            [disabled]="prijavaForma.invalid">
+        <mat-icon>login</mat-icon>
+        Prijavi se
+        </button>
+       
+
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</div>

@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span class="toolbar-naslov">
+    <mat-icon>assignment</mat-icon>
+    Upravljanje projektima
+  </span>
+
+  <span class="spacer"></span>
+
+  <span class="korisnik-info" *ngIf="autentifikacijaService.dajTrenutnogKorisnika()">
+    <mat-icon>account_circle</mat-icon>
+    {{ autentifikacijaService.dajTrenutnogKorisnika()?.ime }} {{ autentifikacijaService.dajTrenutnogKorisnika()?.prezime }}
+  </span>
+
+  <button mat-button (click)="onOdjava()" *ngIf="autentifikacijaService.jePrijavljen()">
+    <mat-icon>logout</mat-icon>
+    Odjavi se
+  </button>
+</mat-toolbar>

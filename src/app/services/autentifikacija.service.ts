@@ -34,7 +34,7 @@ export class AutentifikacijaService {
   }
 
   jePrijavljen(): boolean {
-    return this.trenutniKorisnik !== null;
+  return this.trenutniKorisnik !== null || localStorage.getItem('korisnik') !== null;
   }
 
   dajTrenutnogKorisnika(): Korisnik | null {
