@@ -28,7 +28,34 @@
       </button>
     </div>
 
-    <table mat-table [dataSource]="zadaci" class="tabela-zadataka">
+    <div class="filter-kontejner">
+      <mat-form-field appearance="outline" class="filter-polje">
+        <mat-label>Filter po statusu</mat-label>
+        <mat-select name="filterStatus" [(ngModel)]="filterStatus" (ngModelChange)="primijeniFilter()">
+          <mat-option value="">Svi statusi</mat-option>
+          @for (opcija of statusOpcije; track opcija.vrednost) {
+            <mat-option [value]="opcija.vrednost">{{ opcija.naziv }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-polje">
+        <mat-label>Filter po prioritetu</mat-label>
+        <mat-select name="filterPrioritet" [(ngModel)]="filterPrioritet" (ngModelChange)="primijeniFilter()">
+          <mat-option value="">Svi prioriteti</mat-option>
+          @for (opcija of prioritetOpcije; track opcija.vrednost) {
+            <mat-option [value]="opcija.vrednost">{{ opcija.naziv }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-button (click)="resetujFilter()" class="dugme-reset">
+        <mat-icon>clear</mat-icon>
+        Resetuj
+      </button>
+    </div>
+
+    <table mat-table [dataSource]="filtriranZadaci" class="tabela-zadataka">
 
       <ng-container matColumnDef="opis">
         <th mat-header-cell *matHeaderCellDef>Opis</th>
@@ -66,8 +93,8 @@
 
     </table>
 
-    @if (zadaci.length === 0) {
-      <p class="prazna-lista">Nema zadataka za ovaj projekat.</p>
+    @if (filtriranZadaci.length === 0) {
+      <p class="prazna-lista">Nema zadataka koji odgovaraju filteru.</p>
     }
   }
 

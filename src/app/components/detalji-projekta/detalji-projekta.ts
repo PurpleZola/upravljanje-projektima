@@ -16,12 +16,31 @@ export class DetaljiProjektaComponent implements OnInit {
 
   projekat: Projekat | null = null; // čuva detalje učitanog projekta, počinje null dok podaci ne stignu
   zadaci: Zadatak[] = []; // čuva listu zadataka za projekat, počinje prazno dok podaci ne stignu
+  filtriranZadaci: Zadatak[] = []; // čuva listu filtriranih zadataka, počinje prazno dok se ne primeni filter
   projekatId: number = 0; // čuva ID projekta koji se trenutno prikazuje, inicijalno 0 dok se ne učita iz rute
+
+  filterStatus: number | string = '';
+  filterPrioritet: number | string = '';
+
 
   NAZIV_STATUSA = NAZIV_STATUSA;
   NAZIV_PRIORITETA = NAZIV_PRIORITETA; // dodjeljujemo mape iz modela kao svojstva klase. 
   // Zašto? Jer u Angular templateu ne možeš pozivati uvezene konstante direktno 
   // — moraš ih izložiti kao svojstvo klase da bi template mogao pristupiti,
+
+  statusOpcije = [
+    { vrednost: 0, naziv: 'Novo' },
+    { vrednost: 1, naziv: 'U toku' },
+    { vrednost: 2, naziv: 'Završeno' }
+  ];
+
+  prioritetOpcije = [
+    { vrednost: 0, naziv: 'Nizak' },
+    { vrednost: 1, naziv: 'Srednji' },
+    { vrednost: 2, naziv: 'Visok' }
+  ];
+
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -42,12 +61,28 @@ export class DetaljiProjektaComponent implements OnInit {
   this.ucitajZadatke();
 }
 
-  ucitajZadatke() {
-    this.zadatakService.getZadaciByProjekatId(this.projekatId).subscribe(zadaci => {
-      this.zadaci = zadaci;
-      this.cdr.detectChanges();
-    });
-  }
+ ucitajZadatke() {
+  this.zadatakService.getZadaciByProjekatId(this.projekatId).subscribe(zadaci => {
+    this.zadaci = zadaci;
+    this.primijeniFilter();
+    this.cdr.detectChanges();
+  });
+}
+
+primijeniFilter() {
+  this.filtriranZadaci = this.zadaci.filter(zadatak => {
+    const statusOk = this.filterStatus === '' || zadatak.status === Number(this.filterStatus);
+    const prioritetOk = this.filterPrioritet === '' || zadatak.prioritet === Number(this.filterPrioritet);
+    return statusOk && prioritetOk;
+  });
+  this.cdr.detectChanges();
+}
+
+resetujFilter() {
+  this.filterStatus = '';
+  this.filterPrioritet = '';
+  this.primijeniFilter();
+}
 
   dodajZadatak() {
     this.router.navigate(['/projekti', this.projekatId, 'zadaci', 'novi']);
