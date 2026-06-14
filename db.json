@@ -1,19 +1,75 @@
 {
   "korisnici": [
-    { "id": 1, "korisnickoIme": "admin", "lozinka": "admin123", "ime": "Dusan", "prezime": "Marjanović" },
-    { "id": 2, "korisnickoIme": "lazar", "lozinka": "lazar123", "ime": "Lazar", "prezime": "Lazić" }
+    {
+      "id": "1",
+      "korisnickoIme": "admin",
+      "lozinka": "admin123",
+      "ime": "Dusan",
+      "prezime": "Marjanović"
+    },
+    {
+      "id": "2",
+      "korisnickoIme": "lazar",
+      "lozinka": "lazar123",
+      "ime": "Lazar",
+      "prezime": "Lazić"
+    }
   ],
   "projekti": [
-    { "id": 1, "naziv": "Redizajn sajta", "opis": "Kompletno redizajniranje sajta", "rokRealizacije": "2025-08-15" },
-    { "id": 2, "naziv": "Mobilna aplikacija", "opis": "Razvoj mobilne aplikacije za praćenje narudžbina", "rokRealizacije": "2025-10-01" },
-    { "id": 3, "naziv": "ERP integracija", "opis": "Integracija ERP sistema sa postojećom infrastrukturom", "rokRealizacije": "2025-12-31" }
+    {
+      "id": "1",
+      "naziv": "Redizajn sajta",
+      "opis": "Kompletno redizajniranje sajta",
+      "rokRealizacije": "2026-08-15"
+    },
+    {
+      "id": "2",
+      "naziv": "Mobilna aplikacija",
+      "opis": "Razvoj mobilne aplikacije za praćenje narudžbina",
+      "rokRealizacije": "2026-10-01"
+    },
+    {
+      "id": "3",
+      "naziv": "ERP integracija",
+      "opis": "Integracija ERP sistema sa postojećom infrastrukturom",
+      "rokRealizacije": "2028-12-31"
+    }
   ],
   "zadaci": [
-    { "id": 1, "projektId": 1, "opis": "Izrada wireframe-ova", "status": 2, "prioritet": 2 },
-    { "id": 2, "projektId": 1, "opis": "Implementacija dizajna u HTML/CSS", "status": 1, "prioritet": 1 },
-    { "id": 3, "projektId": 1, "opis": "Testiranje na mobilnim uređajima", "status": 0, "prioritet": 1 },
-    { "id": 4, "projektId": 2, "opis": "Definisanje API specifikacije", "status": 2, "prioritet": 2 },
-    { "id": 5, "projektId": 2, "opis": "Razvoj login ekrana", "status": 1, "prioritet": 2 },
-    { "id": 6, "projektId": 3, "opis": "Analiza postojećeg sistema", "status": 0, "prioritet": 0 }
+    {
+      "id": "1",
+      "projektId": 1,
+      "opis": "Izrada wireframe-ova",
+      "status": 2,
+      "prioritet": 2
+    },
+    {
+      "id": "2",
+      "projektId": 1,
+      "opis": "Implementacija dizajna u HTML/CSS",
+      "status": 1,
+      "prioritet": 1
+    },
+    {
+      "id": "3",
+      "projektId": 1,
+      "opis": "Testiranje na mobilnim uređajima",
+      "status": 0,
+      "prioritet": 1
+    },
+    {
+      "id": "6",
+      "projektId": 3,
+      "opis": "Analiza postojećeg sistema",
+      "status": 0,
+      "prioritet": 0
+    },
+    {
+      "id": "6943",
+      "projektId": 2,
+      "opis": "Ovo je test funkcionalnosti",
+      "status": 1,
+      "prioritet": 0
+    }
   ]
 }

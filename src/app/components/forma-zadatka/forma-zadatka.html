@@ -1,1 +1,63 @@
-<p>forma-zadatka works!</p>
+<div class="stranica-kontejner">
+
+  <mat-card class="forma-kartica">
+
+    <mat-card-header>
+      <mat-icon mat-card-avatar>{{ jeIzmena ? 'edit' : 'add_task' }}</mat-icon>
+      <mat-card-title>{{ jeIzmena ? 'Izmjena zadatka' : 'Novi zadatak' }}</mat-card-title>
+      <mat-card-subtitle>{{ jeIzmena ? 'Uredite postojeći zadatak' : 'Dodajte novi zadatak projektu' }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form #zadatakForma="ngForm" (ngSubmit)="onSacuvaj()">
+
+        <mat-form-field appearance="outline" class="puno-sirine">
+          <mat-label>Opis zadatka</mat-label>
+          <textarea matInput
+                    name="opis"
+                    [(ngModel)]="opis"
+                    required
+                    rows="3"
+                    #opisPolje="ngModel"
+                    placeholder="Unesite opis zadatka">
+          </textarea>
+          <mat-error *ngIf="opisPolje.invalid && opisPolje.touched">
+            Opis zadatka je obavezan
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="puno-sirine">
+          <mat-label>Status</mat-label>
+          <mat-select name="status" [(ngModel)]="status">
+            @for (opcija of statusOpcije; track opcija.vrednost) {
+              <mat-option [value]="opcija.vrednost">{{ opcija.naziv }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="puno-sirine">
+          <mat-label>Prioritet</mat-label>
+          <mat-select name="prioritet" [(ngModel)]="prioritet">
+            @for (opcija of prioritetOpcije; track opcija.vrednost) {
+              <mat-option [value]="opcija.vrednost">{{ opcija.naziv }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="dugmad">
+          <button mat-button type="button" (click)="onOdustani()">
+            <mat-icon>close</mat-icon>
+            Odustani
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="zadatakForma.invalid">
+            <mat-icon>save</mat-icon>
+            {{ jeIzmena ? 'Sačuvaj izmjene' : 'Dodaj zadatak' }}
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
