@@ -4,6 +4,9 @@ import { ProjekatService } from '../../services/projekat.service';
 import { ZadatakService } from '../../services/zadatak.service';
 import { Projekat } from '../../models/projekat.model';
 import { Zadatak, NAZIV_STATUSA, NAZIV_PRIORITETA } from '../../models/zadatak.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { PotvrdaBrisanjaComponent } from '../potvrda-brisanja/potvrda-brisanja';
 
 
 @Component({
@@ -47,7 +50,9 @@ export class DetaljiProjektaComponent implements OnInit {
     private router: Router,
     private projekatService: ProjekatService,
     private zadatakService: ZadatakService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -92,11 +97,22 @@ resetujFilter() {
     this.router.navigate(['/projekti', this.projekatId, 'zadaci', zadatakId, 'izmeni']);
   }
 
-  obrisiZadatak(zadatakId: number) {
-    this.zadatakService.deleteZadatak(zadatakId).subscribe(() => {
-      this.ucitajZadatke();
-    });
-  }
+  obrisiZadatak(zadatakId: number) { // otvara dijalog za potvrdu brisanja zadatka
+  const dialogRef = this.dialog.open(PotvrdaBrisanjaComponent, {
+    width: '400px'
+  });
+
+  dialogRef.afterClosed().subscribe(rezultat => {
+    if (rezultat) {
+      this.zadatakService.deleteZadatak(zadatakId).subscribe(() => {
+        this.ucitajZadatke();
+        this.snackBar.open('Zadatak uspješno obrisan', 'Zatvori', { duration: 3000 });
+      });
+    }
+  });
+}
+
+  
 
   nazadNaProjekte() {
     this.router.navigate(['/projekti']);

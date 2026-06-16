@@ -14,15 +14,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { PrijavaComponent } from './components/prijava/prijava';
 import { NavigacijaComponent } from './components/navigacija/navigacija';
-import {  ListaProjekataComponent } from './components/lista-projekata/lista-projekata';
+import { ListaProjekataComponent } from './components/lista-projekata/lista-projekata';
 import { DetaljiProjektaComponent } from './components/detalji-projekta/detalji-projekta';
 import { FormaZadatkaComponent } from './components/forma-zadatka/forma-zadatka';
 import { RouterModule } from '@angular/router';
+import { PotvrdaBrisanjaComponent } from './components/potvrda-brisanja/potvrda-brisanja';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { RouterModule } from '@angular/router';
     NavigacijaComponent,
     ListaProjekataComponent,
     DetaljiProjektaComponent,
-    FormaZadatkaComponent
+    FormaZadatkaComponent,
+    PotvrdaBrisanjaComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,12 +51,11 @@ import { RouterModule } from '@angular/router';
     MatTableModule,
     MatSelectModule,
     MatChipsModule,
-    CommonModule
+    CommonModule,
+    MatSnackBarModule,
+    MatDialogModule,
   ],
-  providers: [
-    provideHttpClient(),
-    provideAnimationsAsync()
-  ],
-  bootstrap: [App]
+  providers: [provideHttpClient(), provideAnimationsAsync()],
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

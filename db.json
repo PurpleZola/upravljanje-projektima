@@ -63,13 +63,6 @@
       "opis": "Analiza postojećeg sistema",
       "status": 0,
       "prioritet": 0
-    },
-    {
-      "id": "6943",
-      "projektId": 2,
-      "opis": "Ovo je test funkcionalnosti",
-      "status": 1,
-      "prioritet": 0
     }
   ]
 }
