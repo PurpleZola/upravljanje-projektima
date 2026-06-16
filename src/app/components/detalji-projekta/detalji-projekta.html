@@ -20,6 +20,25 @@
       </mat-card-content>
     </mat-card>
 
+    <div class="statistika-kontejner">
+  <div class="statistika-kartica">
+    <span class="statistika-broj">{{ dajStatistiku().ukupno }}</span>
+    <span class="statistika-naziv">Ukupno</span>
+  </div>
+  <div class="statistika-kartica novo">
+    <span class="statistika-broj">{{ dajStatistiku().novo }}</span>
+    <span class="statistika-naziv">Novo</span>
+  </div>
+  <div class="statistika-kartica u-toku">
+    <span class="statistika-broj">{{ dajStatistiku().uToku }}</span>
+    <span class="statistika-naziv">U toku</span>
+  </div>
+  <div class="statistika-kartica zavrseno">
+    <span class="statistika-broj">{{ dajStatistiku().zavrseno }}</span>
+    <span class="statistika-naziv">Završeno</span>
+  </div>
+</div>
+
     <div class="zaglavlje-zadataka">
       <h2>Zadaci</h2>
       <button mat-raised-button color="primary" (click)="dodajZadatak()">

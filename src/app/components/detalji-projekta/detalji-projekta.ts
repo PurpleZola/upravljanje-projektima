@@ -112,6 +112,15 @@ resetujFilter() {
   });
 }
 
+dajStatistiku() {
+  return {
+    ukupno: this.zadaci.length,
+    novo: this.zadaci.filter(z => z.status === 0).length,
+    uToku: this.zadaci.filter(z => z.status === 1).length,
+    zavrseno: this.zadaci.filter(z => z.status === 2).length
+  };
+}
+
   
 
   nazadNaProjekte() {
