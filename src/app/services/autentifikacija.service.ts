@@ -11,7 +11,7 @@ export class AutentifikacijaService {
   private trenutniKorisnik: Korisnik | null = null;
 
   constructor(private http: HttpClient) {
-    const sacuvani = localStorage.getItem('korisnik');
+    const sacuvani = sessionStorage.getItem('korisnik');
     if (sacuvani) {
       this.trenutniKorisnik = JSON.parse(sacuvani);
     }
@@ -24,14 +24,14 @@ export class AutentifikacijaService {
   }
 
   postaviKorisnika(korisnik: Korisnik) {
-    this.trenutniKorisnik = korisnik;
-    localStorage.setItem('korisnik', JSON.stringify(korisnik));
-  }
+  this.trenutniKorisnik = korisnik;
+  sessionStorage.setItem('korisnik', JSON.stringify(korisnik));
+}
 
-  odjava() {
-    this.trenutniKorisnik = null;
-    localStorage.removeItem('korisnik');
-  }
+odjava() {
+  this.trenutniKorisnik = null;
+  sessionStorage.removeItem('korisnik');
+}
 
   jePrijavljen(): boolean {
   return this.trenutniKorisnik !== null || localStorage.getItem('korisnik') !== null;

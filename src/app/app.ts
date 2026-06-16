@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { AutentifikacijaService } from './services/autentifikacija.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,5 @@ import { Component, signal } from '@angular/core';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('upravljanje-projektima');
+  constructor(public autentifikacijaService: AutentifikacijaService) {}
 }
