@@ -24,6 +24,7 @@ export class DetaljiProjektaComponent implements OnInit {
 
   filterStatus: number | string = '';
   filterPrioritet: number | string = '';
+  ucitavanje: boolean = true;
 
 
   NAZIV_STATUSA = NAZIV_STATUSA;
@@ -57,9 +58,11 @@ export class DetaljiProjektaComponent implements OnInit {
 
   ngOnInit() {
   this.projekatId = Number(this.route.snapshot.paramMap.get('id'));
+  this.ucitavanje = true;
 
   this.projekatService.getProjekatById(this.projekatId).subscribe(projekat => {
     this.projekat = projekat;
+    this.ucitavanje = false;
     this.cdr.detectChanges();
   });
 

@@ -5,32 +5,40 @@
     <p>Pregled svih dostupnih projekata</p>
   </div>
 
-  <div class="grid-projekata">
-    @for (projekat of projekti; track projekat.id) {
-      <mat-card class="kartica-projekta">
+  @if (ucitavanje) {
+    <div class="spinner-kontejner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
 
-        <mat-card-header>
-          <mat-icon mat-card-avatar>folder</mat-icon>
-          <mat-card-title>{{ projekat.naziv }}</mat-card-title>
-          <mat-card-subtitle>
-            <mat-icon>event</mat-icon>
-            Rok: {{ projekat.rokRealizacije | date: 'dd.MM.yyyy' }}
-          </mat-card-subtitle>
-        </mat-card-header>
+  @if (!ucitavanje) {
+    <div class="grid-projekata">
+      @for (projekat of projekti; track projekat.id) {
+        <mat-card class="kartica-projekta">
 
-        <mat-card-content>
-          <p class="opis-projekta">{{ projekat.opis }}</p>
-        </mat-card-content>
+          <mat-card-header>
+            <mat-icon mat-card-avatar>folder</mat-icon>
+            <mat-card-title>{{ projekat.naziv }}</mat-card-title>
+            <mat-card-subtitle>
+              <mat-icon>event</mat-icon>
+              Rok: {{ projekat.rokRealizacije | date: 'dd.MM.yyyy' }}
+            </mat-card-subtitle>
+          </mat-card-header>
 
-        <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="otvoriDetalje(projekat.id)">
-            <mat-icon>visibility</mat-icon>
-            Detalji
-          </button>
-        </mat-card-actions>
+          <mat-card-content>
+            <p class="opis-projekta">{{ projekat.opis }}</p>
+          </mat-card-content>
 
-      </mat-card>
-    }
-  </div>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="otvoriDetalje(projekat.id)">
+              <mat-icon>visibility</mat-icon>
+              Detalji
+            </button>
+          </mat-card-actions>
+
+        </mat-card>
+      }
+    </div>
+  }
 
 </div>

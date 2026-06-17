@@ -2,6 +2,12 @@
 
   @if (projekat) {
 
+    @if (ucitavanje) {
+    <div class="spinner-kontejner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
     <div class="breadcrumb">
       <span (click)="nazadNaProjekte()" class="breadcrumb-link">
         <mat-icon>home</mat-icon>

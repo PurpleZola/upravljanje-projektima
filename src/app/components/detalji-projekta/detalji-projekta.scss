@@ -208,3 +208,10 @@ html, body {
   font-size: 14px;
   font-weight: 500;
 }
+
+.spinner-kontejner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}

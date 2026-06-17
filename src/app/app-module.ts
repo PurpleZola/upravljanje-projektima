@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -54,6 +55,7 @@ import { PotvrdaBrisanjaComponent } from './components/potvrda-brisanja/potvrda-
     CommonModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [App],

@@ -12,6 +12,7 @@ import { Projekat } from '../../models/projekat.model';
 export class ListaProjekataComponent implements OnInit {
 
   projekti: Projekat[] = [];
+  ucitavanje: boolean = true;
 
   constructor(
     private projekatService: ProjekatService,
@@ -27,12 +28,15 @@ export class ListaProjekataComponent implements OnInit {
 
   
   ucitajProjekte() {
-    
-    this.projekatService.getProjekti().subscribe(projekti => {
+  this.ucitavanje = true;
+  this.projekatService.getProjekti().subscribe(projekti => {
+    setTimeout(() => {
       this.projekti = [...projekti];
+      this.ucitavanje = false;
       this.cdr.detectChanges();
-    });
-  }
+    }, 400);
+  });
+}
 
   otvoriDetalje(id: number) {
     this.router.navigate(['/projekti', id]);
