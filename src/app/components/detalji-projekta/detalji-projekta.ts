@@ -8,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PotvrdaBrisanjaComponent } from '../potvrda-brisanja/potvrda-brisanja';
 
-
 @Component({
   selector: 'app-detalji-projekta',
   templateUrl: './detalji-projekta.html',
@@ -17,20 +16,17 @@ import { PotvrdaBrisanjaComponent } from '../potvrda-brisanja/potvrda-brisanja';
 })
 export class DetaljiProjektaComponent implements OnInit {
 
-  projekat: Projekat | null = null; // čuva detalje učitanog projekta, počinje null dok podaci ne stignu
-  zadaci: Zadatak[] = []; // čuva listu zadataka za projekat, počinje prazno dok podaci ne stignu
-  filtriranZadaci: Zadatak[] = []; // čuva listu filtriranih zadataka, počinje prazno dok se ne primeni filter
-  projekatId: number = 0; // čuva ID projekta koji se trenutno prikazuje, inicijalno 0 dok se ne učita iz rute
+  projekat: Projekat | null = null;
+  zadaci: Zadatak[] = [];
+  filtriranZadaci: Zadatak[] = [];
+  projekatId: number = 0;
 
   filterStatus: number | string = '';
   filterPrioritet: number | string = '';
   ucitavanje: boolean = true;
 
-
   NAZIV_STATUSA = NAZIV_STATUSA;
-  NAZIV_PRIORITETA = NAZIV_PRIORITETA; // dodjeljujemo mape iz modela kao svojstva klase. 
-  // Zašto? Jer u Angular templateu ne možeš pozivati uvezene konstante direktno 
-  // — moraš ih izložiti kao svojstvo klase da bi template mogao pristupiti,
+  NAZIV_PRIORITETA = NAZIV_PRIORITETA;
 
   statusOpcije = [
     { vrednost: 0, naziv: 'Novo' },
@@ -44,8 +40,6 @@ export class DetaljiProjektaComponent implements OnInit {
     { vrednost: 2, naziv: 'Visok' }
   ];
 
-  
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -57,77 +51,74 @@ export class DetaljiProjektaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-  this.projekatId = Number(this.route.snapshot.paramMap.get('id'));
-  this.ucitavanje = true;
+    this.projekatId = Number(this.route.snapshot.paramMap.get('id'));
+    this.ucitavanje = true;
 
-  this.projekatService.getProjekatById(this.projekatId).subscribe(projekat => {
-    this.projekat = projekat;
-    this.ucitavanje = false;
+    this.projekatService.getProjekatById(this.projekatId).subscribe(projekat => {
+      this.projekat = projekat;
+      this.ucitavanje = false;
+      this.cdr.detectChanges();
+    });
+
+    this.ucitajZadatke();
+  }
+
+  ucitajZadatke() {
+    this.zadatakService.getZadaciByProjekatId(this.projekatId).subscribe(zadaci => {
+      this.zadaci = zadaci;
+      this.primijeniFilter();
+      this.cdr.detectChanges();
+    });
+  }
+
+  primijeniFilter() {
+    this.filtriranZadaci = this.zadaci.filter(zadatak => {
+      const statusOk = this.filterStatus === '' || zadatak.status === Number(this.filterStatus);
+      const prioritetOk = this.filterPrioritet === '' || zadatak.prioritet === Number(this.filterPrioritet);
+      return statusOk && prioritetOk;
+    });
     this.cdr.detectChanges();
-  });
+  }
 
-  this.ucitajZadatke();
-}
-
- ucitajZadatke() {
-  this.zadatakService.getZadaciByProjekatId(this.projekatId).subscribe(zadaci => {
-    this.zadaci = zadaci;
+  resetujFilter() {
+    this.filterStatus = '';
+    this.filterPrioritet = '';
     this.primijeniFilter();
-    this.cdr.detectChanges();
-  });
-}
-
-primijeniFilter() {
-  this.filtriranZadaci = this.zadaci.filter(zadatak => {
-    const statusOk = this.filterStatus === '' || zadatak.status === Number(this.filterStatus);
-    const prioritetOk = this.filterPrioritet === '' || zadatak.prioritet === Number(this.filterPrioritet);
-    return statusOk && prioritetOk;
-  });
-  this.cdr.detectChanges();
-}
-
-resetujFilter() {
-  this.filterStatus = '';
-  this.filterPrioritet = '';
-  this.primijeniFilter();
-}
+  }
 
   dodajZadatak() {
     this.router.navigate(['/projekti', this.projekatId, 'zadaci', 'novi']);
   }
 
-  izmeniZadatak(zadatakId: number) {
+  izmeniZadatak(zadatakId: string) {
     this.router.navigate(['/projekti', this.projekatId, 'zadaci', zadatakId, 'izmeni']);
   }
 
-  obrisiZadatak(zadatakId: number) { // otvara dijalog za potvrdu brisanja zadatka
-  const dialogRef = this.dialog.open(PotvrdaBrisanjaComponent, {
-    width: '400px'
-  });
+  obrisiZadatak(zadatakId: string) {
+    const dialogRef = this.dialog.open(PotvrdaBrisanjaComponent, {
+      width: '400px'
+    });
 
-  dialogRef.afterClosed().subscribe(rezultat => {
-    if (rezultat) {
-      this.zadatakService.deleteZadatak(zadatakId).subscribe(() => {
-        this.ucitajZadatke();
-        this.snackBar.open('Zadatak uspješno obrisan', 'Zatvori', { duration: 3000 });
-      });
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe(rezultat => {
+      if (rezultat) {
+        this.zadatakService.deleteZadatak(zadatakId).subscribe(() => {
+          this.ucitajZadatke();
+          this.snackBar.open('Zadatak uspješno obrisan', 'Zatvori', { duration: 3000 });
+        });
+      }
+    });
+  }
 
-dajStatistiku() {
-  return {
-    ukupno: this.zadaci.length,
-    novo: this.zadaci.filter(z => z.status === 0).length,
-    uToku: this.zadaci.filter(z => z.status === 1).length,
-    zavrseno: this.zadaci.filter(z => z.status === 2).length
-  };
-}
-
-  
+  dajStatistiku() {
+    return {
+      ukupno: this.zadaci.length,
+      novo: this.zadaci.filter(z => z.status === 0).length,
+      uToku: this.zadaci.filter(z => z.status === 1).length,
+      zavrseno: this.zadaci.filter(z => z.status === 2).length
+    };
+  }
 
   nazadNaProjekte() {
     this.router.navigate(['/projekti']);
   }
-
 }

@@ -54,13 +54,20 @@
       "id": "3",
       "projektId": 1,
       "opis": "Testiranje na mobilnim uređajima",
-      "status": 0,
+      "status": 1,
       "prioritet": 1
     },
     {
       "id": "6",
       "projektId": 3,
       "opis": "Analiza postojećeg sistema",
+      "status": 0,
+      "prioritet": 2
+    },
+    {
+      "id": "153e",
+      "projektId": 2,
+      "opis": "test izmena",
       "status": 0,
       "prioritet": 0
     }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZadatakService } from '../../services/zadatak.service';
 import { Zadatak } from '../../models/zadatak.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-forma-zadatka',
@@ -13,7 +13,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class FormaZadatkaComponent implements OnInit {
 
   projekatId: number = 0;
-  zadatakId: number | null = null;
+  zadatakId: string | null = null;
   jeIzmena: boolean = false;
 
   opis: string = '';
@@ -44,7 +44,7 @@ export class FormaZadatkaComponent implements OnInit {
     const zadatakIdParam = this.route.snapshot.paramMap.get('zadatakId');
 
     if (zadatakIdParam) {
-      this.zadatakId = Number(zadatakIdParam);
+      this.zadatakId = zadatakIdParam;
       this.jeIzmena = true;
       this.ucitajZadatak();
     }
@@ -59,28 +59,37 @@ export class FormaZadatkaComponent implements OnInit {
   }
 
   onSacuvaj() {
-  const zadatak: Omit<Zadatak, 'id'> = {
-    projektId: this.projekatId,
-    opis: this.opis,
-    status: this.status,
-    prioritet: this.prioritet
-  };
+    const zadatak: Omit<Zadatak, 'id'> = {
+      projektId: this.projekatId,
+      opis: this.opis,
+      status: Number(this.status),
+      prioritet: Number(this.prioritet)
+    };
 
-  if (this.jeIzmena) {
-    this.zadatakService.updateZadatak(this.zadatakId!, { id: this.zadatakId!, ...zadatak }).subscribe(() => {
-      this.snackBar.open('Zadatak uspješno izmijenjen', 'Zatvori', { duration: 3000 });
-      this.router.navigate(['/projekti', this.projekatId]);
-    });
-  } else {
-    this.zadatakService.createZadatak(zadatak).subscribe(() => {
-      this.snackBar.open('Zadatak uspješno dodat', 'Zatvori', { duration: 3000 });
-      this.router.navigate(['/projekti', this.projekatId]);
-    });
+    if (this.jeIzmena) {
+      this.zadatakService.updateZadatak(this.zadatakId!, { id: this.zadatakId!, ...zadatak }).subscribe({
+        next: () => {
+          this.snackBar.open('Zadatak uspješno izmijenjen', 'Zatvori', { duration: 3000 });
+          this.router.navigate(['/projekti', this.projekatId]);
+        },
+        error: (err) => {
+          console.log('Greška pri izmjeni:', err);
+        }
+      });
+    } else {
+      this.zadatakService.createZadatak(zadatak).subscribe({
+        next: () => {
+          this.snackBar.open('Zadatak uspješno dodat', 'Zatvori', { duration: 3000 });
+          this.router.navigate(['/projekti', this.projekatId]);
+        },
+        error: (err) => {
+          console.log('Greška pri dodavanju:', err);
+        }
+      });
+    }
   }
-}
 
   onOdustani() {
     this.router.navigate(['/projekti', this.projekatId]);
   }
-
 }

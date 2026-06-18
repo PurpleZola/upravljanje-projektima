@@ -7,7 +7,7 @@ import { Korisnik } from '../models/korisnik.model';
 })
 export class AutentifikacijaService {
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000'; // osnovni URL za vaš backend server
   private trenutniKorisnik: Korisnik | null = null;
 
   constructor(private http: HttpClient) {
@@ -25,19 +25,19 @@ export class AutentifikacijaService {
 
   postaviKorisnika(korisnik: Korisnik) {
   this.trenutniKorisnik = korisnik;
-  sessionStorage.setItem('korisnik', JSON.stringify(korisnik));
+  sessionStorage.setItem('korisnik', JSON.stringify(korisnik)); // spremanje korisnika u sessionStorage
 }
 
 odjava() {
   this.trenutniKorisnik = null;
-  sessionStorage.removeItem('korisnik');
+  sessionStorage.removeItem('korisnik'); // uklanjanje korisnika iz sessionStorage
 }
 
   jePrijavljen(): boolean {
-  return this.trenutniKorisnik !== null || localStorage.getItem('korisnik') !== null;
+  return this.trenutniKorisnik !== null || localStorage.getItem('korisnik') !== null; // provjera da li je korisnik prijavljen
   }
 
-  dajTrenutnogKorisnika(): Korisnik | null {
+  dajTrenutnogKorisnika(): Korisnik | null { // navigacija na stranicu profila ili prikaz korisničkih podataka
     return this.trenutniKorisnik;
   }
 }

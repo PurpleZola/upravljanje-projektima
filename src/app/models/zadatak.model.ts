@@ -11,7 +11,7 @@ export const NAZIV_PRIORITETA: { [key: number]: string } = {
 };
 
 export interface Zadatak {
-  id: number;
+  id: string;
   projektId: number;
   opis: string;
   status: number;
