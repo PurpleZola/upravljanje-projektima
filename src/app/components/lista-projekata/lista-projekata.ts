@@ -17,12 +17,12 @@ export class ListaProjekataComponent implements OnInit {
   constructor(
     private projekatService: ProjekatService,
     private router: Router,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef // service za rucno pokretanje detekcije promena u Angular-u
   ) {
     console.log('ListaProjekata konstruktor pokrenut');
   }
 
-  ngOnInit() {
+  ngOnInit() { // metoda koja se poziva kada se komponenta inicijalizuje
   this.ucitajProjekte();
   }
 

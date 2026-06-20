@@ -16,8 +16,8 @@ import { PotvrdaBrisanjaComponent } from '../potvrda-brisanja/potvrda-brisanja';
 })
 export class DetaljiProjektaComponent implements OnInit {
 
-  projekat: Projekat | null = null;
-  zadaci: Zadatak[] = [];
+  projekat: Projekat | null = null;  
+  zadaci: Zadatak[] = []; // Svi zadaci povezani s projektom
   filtriranZadaci: Zadatak[] = [];
   projekatId: number = 0;
 

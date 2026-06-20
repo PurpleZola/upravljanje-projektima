@@ -65,11 +65,11 @@
       "prioritet": 2
     },
     {
-      "id": "153e",
+      "id": "5694",
       "projektId": 2,
-      "opis": "test izmena",
+      "opis": "dodani zadatak",
       "status": 0,
-      "prioritet": 0
+      "prioritet": 1
     }
   ]
 }

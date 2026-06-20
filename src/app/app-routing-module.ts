@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'projekti',
     component: ListaProjekataComponent,
-    canActivate: [AutentifikacijaGuard]
+    canActivate: [AutentifikacijaGuard] // niz jer se može dodati više guardova, svi moraju vratiti true da bi ruta bila aktivirana
   },
   {
     path: 'projekti/:id',
